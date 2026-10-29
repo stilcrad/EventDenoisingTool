@@ -1,0 +1,13 @@
+# Core inference/training requirements. Not a frozen environment lock.
+numpy
+numba
+torch
+scikit-learn
+h5py
+hdf5plugin
+scipy
+pandas
+PyYAML
+Pillow
+opencv-python
+matplotlib

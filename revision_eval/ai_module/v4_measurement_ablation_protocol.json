@@ -1,0 +1,9 @@
+{
+  "status": "independent training protocol after context-v2 downstream audit",
+  "training_seeds": [6101, 6102, 6103],
+  "comparison": "existing v4 weight 0.20 versus weight 0.0; identical architecture, auxiliary labels, normalization, initialization, batches, dropout, epochs and validation selection rule",
+  "optimizer_control": "Keep auxiliary Adam step with zero measurement gradient, including optimizer momentum and weight decay, to match optimizer step count",
+  "independent_synthetic": {"seed": 912031, "cases": 128, "training_seed": 12031, "scope": "new IID synthetic realizations, not independent real recordings", "metrics": ["soft centroid EPE", "hard threshold centroid EPE", "paired full minus ablation EPE"]},
+  "real_development": ["breathing1", "breathing2"],
+  "reporting": "All 3 training seeds; no tuning on independent synthetic outcomes; previously inspected hot-plate data are exploratory, not pristine test data"
+}

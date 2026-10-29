@@ -1,0 +1,31 @@
+{
+  "version": "oral-review-pilot-v1",
+  "status": "Exploratory protocol; final confirmation requires untouched records or windows",
+  "height": 720,
+  "width": 1280,
+  "splits": {
+    "train": ["hair_dryer1", "hair_dryer2", "hair_dryer3_low_light", "hair_dryer_on", "crushed_ice"],
+    "validation": ["breathing1", "breathing2"],
+    "test": ["hot_plate1", "hot_plate2_low_light"]
+  },
+  "external_test": "EBIV wallflow4_dense_3_100ms.evt",
+  "train_window_fractions": [0.25, 0.5, 0.75],
+  "evaluation_window_fractions": [0.5],
+  "window_us": 100000,
+  "warmup_us": 50000,
+  "noise_rates": [0.1, 0.2, 0.4],
+  "noise_types": ["uniform", "hot_pixel"],
+  "hot_pixels": 80,
+  "noise_seeds": [7301, 7302, 7303],
+  "training_seeds": [4101, 4102, 4103],
+  "sample_per_train_case": 30000,
+  "sample_per_validation_case": 50000,
+  "target_source_recall": 0.98,
+  "epochs": 25,
+  "batch_size": 4096,
+  "learning_rate": 0.001,
+  "label_note": "1 means source recording event, 0 means injected event; source events may contain native sensor noise",
+  "threshold_rule": "minimum validation-case lower 2% source-score quantile; ties kept",
+  "record_grouping": "All hair-dryer recordings in training; all breathing recordings in validation; all hot-plate recordings in held-out test",
+  "success_rule": "Report all outcomes. Learned method must improve a mechanics error metric without loss of valid-vector coverage; physics descriptor advantage requires full MLP vs generic MLP. No claim of universal improvement."
+}

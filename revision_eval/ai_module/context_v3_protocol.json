@@ -1,0 +1,46 @@
+{
+  "name": "vgs_physics_ai_event_reliability_v3",
+  "status": "independent training protocol after context-v2 downstream audit",
+  "parent_protocol": "context_v2_protocol.json",
+  "purpose": "Train a small physics-context event-reliability network whose objective explicitly protects measurement information.",
+  "preserved_properties": [
+    "14 causal physical descriptors and 100 event-centred context descriptors",
+    "timestamp-aligned original-event subset; no frame accumulation",
+    "fixed 5 ms future context with real post-window events loaded in EBIV",
+    "historical VGS, raw event files, Table 1 values, and prior results are never overwritten"
+  ],
+  "training_data": "the frozen context-v2 train and validation caches; no held-out hot-plate files are read",
+  "loss": {
+    "classification": "weighted BCE with positive/source-event weight 3.0 to penalize false rejection",
+    "sparsity_augmentation": "deterministic feature dropout during training: 5% physics features and 10% context features",
+    "measurement": "differentiable weighted-centroid displacement loss on synthetic translated event pairs with known (dx,dy)",
+    "objective": "L = L_asymmetric_BCE + 0.05 L_measurement"
+  },
+  "measurement_auxiliary": {
+    "sensor": [64, 64],
+    "cases": 24,
+    "signal_events_per_burst": 280,
+    "noise_events_per_case": 160,
+    "separation_us": 10000,
+    "translation_range_px": [-3, 3],
+    "seed": 12031,
+    "selection_role": "training regularizer only; not an evaluation label"
+  },
+  "model": {
+    "context_ai_expert": "100-64-32-1 MLP",
+    "physics_context_mlp": "114-64-32-1 MLP",
+    "gated_context_dual_expert": "117-64-16-1 gate retained for ablation"
+  },
+  "selection": {
+    "model": "highest macro validation ROC-AUC among the three learned branches",
+    "threshold": "largest validation threshold with mean source recall >= 0.98 and minimum per-case recall >= 0.95",
+    "mechanics_gate": "validation EBOS EPE, coverage, failure, and low-density behavior are reported; held-out test values are not used for selection"
+  },
+  "evaluation": {
+    "primary": "event reliability plus EBIV/EBOS measurement metrics",
+    "statistics": "three frozen training seeds; case means then mean/sample SD; no best-seed reporting",
+    "label_boundary": "source events are proxy positives and injected events proxy negatives, not absolute clean/noise truth",
+    "reference_boundary": "EBIV and EBOS references are source-derived reference solutions, not independent physical ground truth"
+  },
+  "training_seeds": [6101, 6102, 6103]
+}

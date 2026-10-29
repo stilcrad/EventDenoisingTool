@@ -1,0 +1,100 @@
+{
+  "models": [
+    {
+      "variant": "context_v4_augmented",
+      "seed": 6101,
+      "path": "revision_eval/ai_module/runs/context_v4_augmented/models/context_v3_6101.pt",
+      "sha256": "aebc78490a739dd0254a47f9aeb0db7ccac5b243ff99522e89b2891c264214f3",
+      "archived_sha256": "c2e6f5f89c326807c11930b87febf051110257438b30f60c0a2c19ed1502718b",
+      "schema": "vgs_physics_ai_contextual_reliability_v4_augmented",
+      "primary_method": "physics_context_mlp",
+      "thresholds": {
+        "context_ai_expert": 0.5578581392765039,
+        "physics_context_mlp": 0.5386741459369659,
+        "gated_context_dual_expert": 0.5348797142505644,
+        "physics_calibrated": 0.44889114797115315
+      },
+      "change": "Only training_protocol metadata made repository-relative; all other payload values equal"
+    },
+    {
+      "variant": "context_v4_augmented",
+      "seed": 6102,
+      "path": "revision_eval/ai_module/runs/context_v4_augmented/models/context_v3_6102.pt",
+      "sha256": "1a9ce6b436f546a099be77ef486d497d624c33af3d64a7b0f89a44d2fd54607b",
+      "archived_sha256": "2f11a965266689487e1d9b9817a588521a447e65fcafbea77e90e8cca259d9ee",
+      "schema": "vgs_physics_ai_contextual_reliability_v4_augmented",
+      "primary_method": "physics_context_mlp",
+      "thresholds": {
+        "context_ai_expert": 0.562965959310531,
+        "physics_context_mlp": 0.4793968647718426,
+        "gated_context_dual_expert": 0.5351050794124594,
+        "physics_calibrated": 0.4489592760801314
+      },
+      "change": "Only training_protocol metadata made repository-relative; all other payload values equal"
+    },
+    {
+      "variant": "context_v4_augmented",
+      "seed": 6103,
+      "path": "revision_eval/ai_module/runs/context_v4_augmented/models/context_v3_6103.pt",
+      "sha256": "eb11d7f8ee835deab9ec4846e45f35e5fbf3fcfcca75ff2fa3c1531cf8fc0dd9",
+      "archived_sha256": "aef2f0bc794fa8fdc279713e5f7bae19f91e6fa2bca5034792f82e154ca70a75",
+      "schema": "vgs_physics_ai_contextual_reliability_v4_augmented",
+      "primary_method": "physics_context_mlp",
+      "thresholds": {
+        "context_ai_expert": 0.610580116510391,
+        "physics_context_mlp": 0.5278469026088706,
+        "gated_context_dual_expert": 0.5352335870265952,
+        "physics_calibrated": 0.4489592760801314
+      },
+      "change": "Only training_protocol metadata made repository-relative; all other payload values equal"
+    },
+    {
+      "variant": "v4_no_measurement",
+      "seed": 6101,
+      "path": "revision_eval/ai_module/runs/v4_no_measurement/models/context_v3_6101.pt",
+      "sha256": "16ad2edac181b7a31d38c39531851c65431d3acec99826a2a1a5e046fbea596c",
+      "archived_sha256": "42b8b1457c437164e1da7768fb7f82f0ce7bdc23e1c0c39c1cf412685679df62",
+      "schema": "vgs_physics_ai_contextual_reliability_v4_augmented",
+      "primary_method": "physics_context_mlp",
+      "thresholds": {
+        "context_ai_expert": 0.5578581392765039,
+        "physics_context_mlp": 0.4464949816465369,
+        "gated_context_dual_expert": 0.5348797142505644,
+        "physics_calibrated": 0.44889114797115315
+      },
+      "change": "Only training_protocol metadata made repository-relative; all other payload values equal"
+    },
+    {
+      "variant": "v4_no_measurement",
+      "seed": 6102,
+      "path": "revision_eval/ai_module/runs/v4_no_measurement/models/context_v3_6102.pt",
+      "sha256": "2ba7d02bbd835cbe81d35af0a5e926ff2a3900a3a117fe3401ca203d3d8731fd",
+      "archived_sha256": "d884e21ad483f9e4063a866ed6d12ba5553878292f5464ea415988bffa28a149",
+      "schema": "vgs_physics_ai_contextual_reliability_v4_augmented",
+      "primary_method": "physics_context_mlp",
+      "thresholds": {
+        "context_ai_expert": 0.562965959310531,
+        "physics_context_mlp": 0.48337624967098203,
+        "gated_context_dual_expert": 0.5351050794124594,
+        "physics_calibrated": 0.4489592760801314
+      },
+      "change": "Only training_protocol metadata made repository-relative; all other payload values equal"
+    },
+    {
+      "variant": "v4_no_measurement",
+      "seed": 6103,
+      "path": "revision_eval/ai_module/runs/v4_no_measurement/models/context_v3_6103.pt",
+      "sha256": "fbaeb84e096e66028cb462c1790154685ed39e62a8119a2d6e1cee9b624b8378",
+      "archived_sha256": "a17655248d1cfd3d208de32dfc552df790e78e72ac0a02485ca3c25c7a8d8989",
+      "schema": "vgs_physics_ai_contextual_reliability_v4_augmented",
+      "primary_method": "physics_context_mlp",
+      "thresholds": {
+        "context_ai_expert": 0.610580116510391,
+        "physics_context_mlp": 0.525083273649215,
+        "gated_context_dual_expert": 0.5352335870265952,
+        "physics_calibrated": 0.4489592760801314
+      },
+      "change": "Only training_protocol metadata made repository-relative; all other payload values equal"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "vgs_physics_ai_contextual_dual_expert_v2",
+  "status": "pre-registered before context-v2 held-out event and mechanics evaluation",
+  "created_at": "2026-09-08",
+  "purpose": "A separate, context-enhanced follow-up after gated_v1 showed no EBIV improvement under uniform injected noise. It must not overwrite or relabel any historical VGS result.",
+  "sensor": {"height": 720, "width": 1280},
+  "window_us": 100000,
+  "warmup_us": 50000,
+  "lookahead_us": 5000,
+  "splits": {
+    "train": ["hair_dryer1", "hair_dryer2", "hair_dryer3_low_light", "hair_dryer_on", "crushed_ice"],
+    "validation": ["breathing1", "breathing2"],
+    "test": ["hot_plate1", "hot_plate2_low_light"]
+  },
+  "window_fractions": {
+    "train": [0.5],
+    "validation": [0.5],
+    "test": [0.35, 0.65]
+  },
+  "test_window_boundary": "The v1 gated experiment used hot-plate fractions 0.2 and 0.8 (and an earlier pilot used 0.5). Context-v2 reserves fractions 0.35 and 0.65 and new test noise seeds. No v2 training, model choice, threshold choice, or mechanics choice may read these windows.",
+  "corruptions": {
+    "train": [["uniform", 0.1], ["uniform", 0.2], ["uniform", 0.4], ["hot_pixel", 0.1], ["hot_pixel", 0.2], ["hot_pixel", 0.4]],
+    "validation": [["uniform", 0.1], ["uniform", 0.2], ["uniform", 0.4], ["hot_pixel", 0.1], ["hot_pixel", 0.2], ["hot_pixel", 0.4]],
+    "test": [["uniform", 0.1], ["uniform", 0.2], ["uniform", 0.4], ["hot_pixel", 0.1], ["hot_pixel", 0.2], ["hot_pixel", 0.4]]
+  },
+  "noise_seeds": {"train": [8501], "validation": [8601, 8602], "test": [9601, 9602, 9603]},
+  "training_seeds": [6101, 6102, 6103],
+  "sampling": {"train_per_class_per_case": 6000, "validation_per_class_per_case": 8000, "validation_selection_per_class": 2500},
+  "model": {
+    "context_features": "100 event-centred 5x5 time-surface lags: past/future x same/opposite polarity, with a fixed 5 ms lookahead. No frame accumulation is used.",
+    "physics_features": "14 causal VGS-derived descriptors plus a Platt-calibrated VGS continuous score; these are not the historical full VGS implementation.",
+    "context_ai_expert": "100-64-32-1 MLP",
+    "physics_context_mlp": "114-64-32-1 MLP",
+    "gated_context_dual_expert": "117-64-16-1 reliability gate over 14 physics descriptors, 100 context descriptors, two expert probabilities, and their absolute disagreement",
+    "feature_state_rule": "The causal physics state is updated from the raw chronological stream. Context descriptors use exactly a declared 5 ms finite lookahead; the output remains a timestamp-aligned subset of original events."
+  },
+  "optimization": {
+    "epochs": 24,
+    "batch_size": 4096,
+    "learning_rate": 0.001,
+    "weight_decay": 0.00001,
+    "model_selection": "highest macro mean validation ROC-AUC over fixed validation-selection subsets; deterministic tie order: gated_context_dual_expert, physics_context_mlp, context_ai_expert",
+    "class_balanced_loss": true
+  },
+  "threshold": {
+    "rule": "On validation only, choose the largest threshold whose mean per-case source recall is at least 0.98 and whose minimum per-case source recall is at least 0.95. The threshold is then frozen for held-out event/EBIV/EBOS evaluation.",
+    "report_targets": [0.98, 0.95]
+  },
+  "evaluation": {
+    "event_metrics": ["ROC-AUC", "average precision", "source recall", "injected-noise rejection", "precision", "retention"],
+    "mechanics_metrics": ["source-derived reference-map EPE or flow difference", "coverage", "missing-vector fraction", "coverage-aware failure"],
+    "primary_reporting": "mean and sample standard deviation over three frozen training seeds; no best-seed selection"
+  },
+  "label_boundary": "Source-recording events are controlled-corruption proxy positives and can include native sensor noise. Injected events are known proxy negatives; neither label is absolute clean/noise ground truth.",
+  "reference_boundary": "EBIV source-event maps and EBOS clean-source flow maps are reference solutions, not independent physical ground truth.",
+  "negative_result_boundary": "gated_v1 is a retained diagnostic ablation. Context-v2 is a new method and its results must be reported separately; it may not be described as a retroactive improvement of gated_v1."
+}
